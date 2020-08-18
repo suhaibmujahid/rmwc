@@ -45,6 +45,8 @@ export interface MenuSurfaceProps {
   apiRef?: (api: MenuSurfaceApi | null) => void;
   /** Advanced: A reference to the MDCFoundation. */
   foundationRef?: React.Ref<MDCMenuSurfaceFoundation>;
+  /** Whether or not to render the children only when the menu is open. */
+  renderOnOpen?: boolean
 }
 
 /****************************************************************
@@ -64,6 +66,7 @@ export const MenuSurface = createComponent<MenuSurfaceProps>(
       fixed,
       apiRef,
       foundationRef,
+      renderOnOpen,
       ...rest
     } = props;
 
@@ -75,6 +78,8 @@ export const MenuSurface = createComponent<MenuSurfaceProps>(
         'mdc-menu-surface--fixed': fixed
       }
     ]);
+
+    if (renderOnOpen === true && !open) return null
 
     return (
       <PortalChild renderTo={renderToPortal}>
